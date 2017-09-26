@@ -799,6 +799,9 @@ class FedoraRelsInt extends FedoraRelationships {
    *   TRUE if relationships were removed, FALSE otherwise.
    */
   public function remove($predicate_uri = NULL, $predicate = NULL, $object = NULL, $type = RELS_TYPE_URI) {
+    if (!isset($this->aboutDs->parent['RELS-INT'])) {
+      return FALSE;
+    }
     $this->initializeDatastream();
     $return = parent::internalRemove("{$this->aboutDs->parent->id}/{$this->aboutDs->id}", $predicate_uri, $predicate, $object, $type);
 

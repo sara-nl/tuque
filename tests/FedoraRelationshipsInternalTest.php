@@ -89,4 +89,38 @@ class FedoraRelationshipsInternalTest extends TestCase {
   function testPurge() {
     $this->assertTrue($this->object->purgeDatastream('RELS-INT'));
   }
+
+  function testMultipleWritesWhenPurging() {
+    $this->markTestIncomplete('This is a current bug that needs to be addressed in ISLANDORA-2068.');
+    $this->object->purgeDatastream('RELS-INT');
+    $this->object->ingestDatastream($this->datastream);
+    $this->object->ingestDatastream($this->datastream2);
+
+    $this->datastream->relationships->remove(ISLANDORA_RELS_INT_URI, 'whargarbl');
+    $this->datastream2->relationships->remove(ISLANDORA_RELS_INT_URI, 'omnomnom');
+
+    $this->datastream->relationships->add(ISLANDORA_RELS_INT_URI, 'isWhargarbl', 'whargarbl', TRUE);
+    $this->datastream2->relationships->add(ISLANDORA_RELS_INT_URI, 'isOmNom', 'omnom', TRUE);
+    $this->assertEquals(1, count($this->datastream->relationships->get(ISLANDORA_RELS_INT_URI, 'isWhargarbl')));
+    $this->assertEquals(1, count($this->datastream->relationships->get(ISLANDORA_RELS_INT_URI, 'isOmNom')));
+  }
+
+  function testMultipleWritesWithoutPurging() {
+    $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
+    $this->api = new FedoraApi($connection);
+    $cache = new SimpleCache();
+    $repository = new FedoraRepository($this->api, $cache);
+    $object = $repository->constructObject('om:nom');
+    $ds = $object->constructDatastream('om');
+    $ds2 = $object->constructDatastream('nom');
+
+    $ds->relationships->remove(ISLANDORA_RELS_INT_URI, 'whargarbl');
+    $ds2->relationships->remove(ISLANDORA_RELS_INT_URI, 'omnomnom');
+
+    $ds->relationships->add(ISLANDORA_RELS_INT_URI, 'isWhargarbl', 'whargarbl', TRUE);
+    $ds2->relationships->add(ISLANDORA_RELS_INT_URI, 'isOmNom', 'omnom', TRUE);
+    $this->assertEquals(1, count($ds->relationships->get(ISLANDORA_RELS_INT_URI, 'isWhargarbl')));
+    $this->assertEquals(1, count($ds2->relationships->get(ISLANDORA_RELS_INT_URI, 'isOmNom')));
+  }
+
 }
