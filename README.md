@@ -33,7 +33,7 @@ Tests with the Islandora UI and Fedora 3.6.2 have not shown issues.
 
 ## Documentation
 
-Further documentation for this module is available at [our wiki](https://wiki.duraspace.org/display/ISLANDORA/APPENDIX+G+-+All+About+Tuque).
+Further documentation for this module is available at [our wiki](https://github.com/Islandora/islandora/wiki/Working-With-Fedora-Objects-Programmatically-Via-Tuque).
 
 ## Troubleshooting/Issues
 
