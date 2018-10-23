@@ -1,4 +1,4 @@
-# Tuque [![Build Status](https://travis-ci.org/Islandora/tuque.png?branch=1.x)](https://travis-ci.org/Islandora/tuque)
+# Tuque [![Build Status](https://travis-ci.org/Islandora/tuque.png?branch=1.12)](https://travis-ci.org/Islandora/tuque)
 
 ## Introduction
 
