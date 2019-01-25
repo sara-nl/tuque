@@ -295,6 +295,11 @@ abstract class AbstractFedoraObject extends AbstractObject {
             $this->objectProfile['objState'] = 'I';
             break;
 
+          case 's':
+          case 'submitted':
+            $this->objectProfile['objState'] = 'S';
+            break;
+
           default:
             trigger_error("$value is not a valid value for the object->state property.", E_USER_WARNING);
             break;

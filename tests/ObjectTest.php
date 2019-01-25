@@ -119,6 +119,8 @@ class ObjectTest extends TestCase {
   public function testObjectState() {
     $this->assertEquals('A', $this->object->state);
 
+    $this->object->state = 'S';
+    $this->assertEquals('S', $this->object->state);
     $this->object->state = 'I';
     $this->assertEquals('I', $this->object->state);
     $this->object->state = 'A';
@@ -126,6 +128,8 @@ class ObjectTest extends TestCase {
     $this->object->state = 'D';
     $this->assertEquals('D', $this->object->state);
 
+    $this->object->state = 's';
+    $this->assertEquals('S', $this->object->state);
     $this->object->state = 'i';
     $this->assertEquals('I', $this->object->state);
     $this->object->state = 'a';
@@ -133,6 +137,8 @@ class ObjectTest extends TestCase {
     $this->object->state = 'd';
     $this->assertEquals('D', $this->object->state);
 
+    $this->object->state = 'submitted';
+    $this->assertEquals('S', $this->object->state);
     $this->object->state = 'inactive';
     $this->assertEquals('I', $this->object->state);
     $this->object->state = 'active';
