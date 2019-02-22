@@ -12,7 +12,7 @@ use \PHPUnit\Framework\TestCase;
 
 class FedoraRelationshipsExternalTest extends TestCase {
 
-  function setUp() {
+  function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -32,7 +32,7 @@ class FedoraRelationshipsExternalTest extends TestCase {
     $this->repository->ingestObject($this->object);
   }
 
-  function tearDown() {
+  function tearDown() : void {
     $this->repository->purgeObject($this->object->id);
   }
 

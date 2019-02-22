@@ -12,7 +12,7 @@ use \PHPUnit\Framework\TestCase;
 
 class RepositoryTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();

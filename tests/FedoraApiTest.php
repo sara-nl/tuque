@@ -15,7 +15,7 @@ class FedoraApiIngestTest extends TestCase {
   protected $pids = array();
   protected $files = array();
 
-  protected function setUp() {
+  protected function setUp() : void {
     $this->connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->serializer = new FedoraApiSerializer();
 
@@ -23,7 +23,7 @@ class FedoraApiIngestTest extends TestCase {
     $this->apia = new FedoraApiA($this->connection, $this->serializer);
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     if (isset($this->pids) && is_array($this->pids)) {
       while ($pid = array_pop($this->pids)) {
         try {
@@ -102,6 +102,7 @@ class FedoraApiIngestTest extends TestCase {
   http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
   <foxml:objectProperties>
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="A"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#shareLevel" VALUE="O"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="$expected_label"/>
   </foxml:objectProperties>
 </foxml:digitalObject>
@@ -250,7 +251,7 @@ class FedoraApiFindObjectsTest extends TestCase {
     return $profile;
   }
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $serializer = new FedoraApiSerializer();
 
@@ -279,7 +280,7 @@ class FedoraApiFindObjectsTest extends TestCase {
     $this->fixtures[$pid] = array();
     $this->fixtures[$pid]['xml'] = $string;
     $this->fixtures[$pid]['findObjects'] = array( 'pid' => $pid1,
-      'label' => 'label1', 'state' => 'I', 'ownerId' => 'owner1',
+      'label' => 'label1', 'state' => 'I', 'shareLevel' => 'R', 'ownerId' => 'owner1',
       'cDate' => '2012-03-12T15:22:37.847Z', 'dcmDate' => '2012-03-13T14:12:59.272Z',
       'title' => 'title1', 'creator' => 'creator1', 'subject' => 'subject1',
       'description' => 'description1', 'publisher' => 'publisher1',
@@ -302,6 +303,7 @@ class FedoraApiFindObjectsTest extends TestCase {
       'objDissIndexViewURL' => "http://localhost:8080/fedora/objects/$urlpid/methods/fedora-system%3A3/viewMethodIndex",
       'objItemIndexViewURL' => "http://localhost:8080/fedora/objects/$urlpid/methods/fedora-system%3A3/viewItemIndex",
       'objState' => $this->fixtures[$pid]['findObjects']['state'],
+      'objShareLevel' => $this->fixtures[$pid]['findObjects']['shareLevel'],
     );
     $this->fixtures[$pid]['listDatastreams'] = array(
       '2012-03-13T14:12:59.272Z' => array (
@@ -412,6 +414,7 @@ class FedoraApiFindObjectsTest extends TestCase {
       'pid' => $pid,
       'label' => 'label2',
       'state' => 'A',
+      'shareLevel' => 'O',
       'ownerId' => 'owner2',
       'cDate' => '2000-03-12T15:22:37.847Z',
       'dcmDate' => '2010-03-13T14:12:59.272Z',
@@ -440,6 +443,7 @@ class FedoraApiFindObjectsTest extends TestCase {
       'objDissIndexViewURL' => "http://localhost:8080/fedora/objects/$urlpid/methods/fedora-system%3A3/viewMethodIndex",
       'objItemIndexViewURL' => "http://localhost:8080/fedora/objects/$urlpid/methods/fedora-system%3A3/viewItemIndex",
       'objState' => $this->fixtures[$pid]['findObjects']['state'],
+      'objShareLevel' => $this->fixtures[$pid]['findObjects']['shareLevel'],
     );
     $this->fixtures[$pid]['listDatastreams'] = array(
       '2010-03-13T14:12:59.272Z' => array (
@@ -470,15 +474,14 @@ class FedoraApiFindObjectsTest extends TestCase {
       ),
     );
 
-    $this->display = array( 'pid', 'label', 'state', 'ownerId', 'cDate', 'mDate',
+    $this->display = array( 'pid', 'label', 'state', 'shareLevel', 'ownerId', 'cDate', 'mDate',
       'dcmDate', 'title', 'creator', 'subject', 'description', 'publisher',
       'contributor', 'date', 'type', 'format', 'identifier', 'source',
       'language', 'relation', 'coverage', 'rights'
     );
   }
 
-  protected function tearDown()
-  {
+  protected function tearDown() : void {
     if(self::$purge) {
       foreach ($this->fixtures as $key => $value) {
         try {

@@ -12,7 +12,7 @@ use \PHPUnit\Framework\TestCase;
 
 class CopyDatastreamTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -22,8 +22,7 @@ class CopyDatastreamTest extends TestCase {
     $string1 = FedoraTestHelpers::randomString(10);
     $string2 = FedoraTestHelpers::randomString(10);
     $this->testPid = "$string1:$string2";
-    $this->api->m->ingest(array('pid' => $this->testPid));
-
+    $testt = $this->api->m->ingest(array('pid' => $this->testPid));
 
     $string3 = FedoraTestHelpers::randomString(10);
     $string4 = FedoraTestHelpers::randomString(10);
@@ -47,7 +46,7 @@ class CopyDatastreamTest extends TestCase {
     $this->tempfile2 = tempnam($temp_dir, 'test');
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     $this->api->m->purgeObject($this->testPid);
     $this->api->m->purgeObject($this->testPid2);
     unlink($this->tempfile1);

@@ -11,7 +11,7 @@ use \PHPUnit\Framework\TestCase;
 
 class ObjectTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -27,7 +27,7 @@ class ObjectTest extends TestCase {
     $this->object = new FedoraObject($this->testPid, $repository);
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     $this->api->m->purgeObject($this->testPid);
   }
 
@@ -45,6 +45,9 @@ class ObjectTest extends TestCase {
 
     $this->object->state = 'I';
     $this->assertEquals('I', $this->getValue('objState'));
+
+    $this->object->shareLevel = 'O';
+    $this->assertEquals('O', $this->getValue('objShareLevel'));
   }
 
   public function testObjectLabel() {
@@ -145,6 +148,31 @@ class ObjectTest extends TestCase {
     $this->assertEquals('A', $this->object->state);
     $this->object->state = 'deleted';
     $this->assertEquals('D', $this->object->state);
+  }
+
+  public function testObjectShareLevel() {
+    $this->assertEquals('O', $this->object->shareLevel);
+
+    $this->object->shareLevel = 'R';
+    $this->assertEquals('R', $this->object->shareLevel);
+    $this->object->shareLevel = 'O';
+    $this->assertEquals('O', $this->object->shareLevel);
+    $this->object->shareLevel = 'P';
+    $this->assertEquals('P', $this->object->shareLevel);
+
+    $this->object->shareLevel = 'r';
+    $this->assertEquals('R', $this->object->shareLevel);
+    $this->object->shareLevel = 'o';
+    $this->assertEquals('O', $this->object->shareLevel);
+    $this->object->shareLevel = 'p';
+    $this->assertEquals('P', $this->object->shareLevel);
+
+    $this->object->shareLevel = 'registered';
+    $this->assertEquals('R', $this->object->shareLevel);
+    $this->object->shareLevel = 'open';
+    $this->assertEquals('O', $this->object->shareLevel);
+    $this->object->shareLevel = 'private';
+    $this->assertEquals('P', $this->object->shareLevel);
   }
 
   public function testObjectDelete() {

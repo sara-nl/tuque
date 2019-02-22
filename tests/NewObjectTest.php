@@ -10,7 +10,7 @@ require_once 'tests/ObjectTest.php';
 
 class NewObjectTest extends ObjectTest {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -44,7 +44,7 @@ class NewObjectTest extends ObjectTest {
     $repository->ingestObject($this->existing_object);
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
   }
 
 

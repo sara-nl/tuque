@@ -12,7 +12,7 @@ use \PHPUnit\Framework\TestCase;
 
 class FoxmlDocumentTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -73,7 +73,7 @@ class FoxmlDocumentTest extends TestCase {
 ';
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     $this->api->m->purgeObject($this->testPid);
   }
 

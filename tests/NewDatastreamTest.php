@@ -11,7 +11,7 @@ require_once 'TestHelpers.php';
 use \PHPUnit\Framework\TestCase;
 use \PHPUnit\Framework\Error\Error;
 
-// XXX: PHPUnit6 moved the location of the Error class. 
+// XXX: PHPUnit6 moved the location of the Error class.
 // This can be dropped when we drop support for PHP < 7.0 in our testing.
 if (class_exists('\PHPUnit\Framework\Error\Error', TRUE)) {
   class_alias('\PHPUnit\Framework\Error\Error', 'PHPUnit_Framework_Error');
@@ -19,7 +19,7 @@ if (class_exists('\PHPUnit\Framework\Error\Error', TRUE)) {
 
 class NewDatastreamTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -37,7 +37,7 @@ class NewDatastreamTest extends TestCase {
     $this->r = new NewFedoraDatastream('four', 'R', $this->object, $this->repository);
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     $this->api->m->purgeObject($this->testPid);
   }
 

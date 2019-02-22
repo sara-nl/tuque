@@ -5,6 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
 <foxml:objectProperties>
 <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Inactive"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#shareLevel" VALUE="Registered"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="label1"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="owner1"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-03-12T15:22:37.847Z"/>
@@ -34,7 +35,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 </foxml:datastream>
 <foxml:datastream ID="fixture" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
 <foxml:datastreamVersion ID="fixture.3" LABEL="label" CREATED="2012-03-13T17:40:29.057Z" ALT_IDS="alt" MIMETYPE="image/png" FORMAT_URI="format" SIZE="11828">
-<foxml:binaryContent> 
+<foxml:binaryContent>
               iVBORw0KGgoAAAANSUhEUgAAAWgAAAErCAAAAADWQkbLAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
               JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAtv0lEQVR42u2dd0DTV/f/30kgEDZhg0xl
               iIqiiLhARa1axdZt3at111212jrq1qp1a9177y2Ke4OjTnCjgIqAsiF5//5IGKH2efp7viTGmPMPnx3O
@@ -233,10 +234,10 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
               6fKfqvpuEJiJMFgP+v8qWQMG/ufFbskHbkfOf6gH/X+WHBn1ognQetGD1oPWg9aLHrQetF70oPWg9aD1
               ogetB60XPWg9aD1ovehB60HrRQ9aD1oPWi960HrQevkI6IXX9KJmWQi96EXH5P8Bk+/lcoBJzsgAAAAA
               SUVORK5CYII=
-</foxml:binaryContent> 
+</foxml:binaryContent>
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="fixture.4" LABEL="label" CREATED="2012-03-13T18:09:25.425Z" MIMETYPE="image/png" FORMAT_URI="format" SIZE="68524">
-<foxml:binaryContent> 
+<foxml:binaryContent>
               iVBORw0KGgoAAAANSUhEUgAAAhwAAAHVCAIAAAA1k7XKAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
               JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAACXBIWXMAAAsTAAALEwEAmpwYAAELIklE
               QVR4XuzdB5hdVfU2cEMKISGEXpTekWqlqCBFAUEFRRBEuqAoIF0QRDoIgnQE6SCKFBVQ/3RBsNAEpCgQ
@@ -1380,7 +1381,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
               kEppUEZHgUAgEAgEAkEq8QwEAoFAIBAIlIZAjVTyaoOldRwdBQKBQCAQCGxMCCQqqRWUnDdvXqaWuDEh
               ENcaCAQCgUAgUBoCtBYtVRmkP9KKXbWwSjtPdBQIBAKBQCCwESCAUaiq/x80Qb5E4P06EQAAAABJRU5E
               rkJggg==
-</foxml:binaryContent> 
+</foxml:binaryContent>
 </foxml:datastreamVersion>
 </foxml:datastream>
 <foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">

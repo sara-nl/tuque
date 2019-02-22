@@ -12,7 +12,7 @@ use \PHPUnit\Framework\TestCase;
 
 class DatastreamTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
@@ -43,7 +43,7 @@ class DatastreamTest extends TestCase {
     $this->x = new FedoraDatastream($this->testDsidX, $this->object, $this->repository);
   }
 
-  protected function tearDown() {
+  protected function tearDown() : void {
     $this->api->m->purgeObject($this->testPid);
   }
 

@@ -5,7 +5,7 @@ use \PHPUnit\Framework\TestCase;
 
 class HttpConnectionTest extends TestCase {
 
-  protected function setUp() {
+  protected function setUp() : void {
     $this->xml = <<<foo
 <woo>
   <test>

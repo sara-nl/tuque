@@ -5,7 +5,7 @@ use \PHPUnit\Framework\TestCase;
 
 class FedoraRelationshipsInternalTest extends TestCase {
 
-  function setUp() {
+  function setUp() : void {
     $connection = new RepositoryConnection(FEDORAURL, FEDORAUSER, FEDORAPASS);
     $this->api = new FedoraApi($connection);
     $cache = new SimpleCache();
