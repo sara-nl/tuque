@@ -59,6 +59,13 @@ abstract class AbstractObject extends MagicProperty implements Countable, ArrayA
    */
   public $state;
   /**
+   * The share level of this object. Must be one of: O (Open), R (Registered) or
+   * P (Private). This is a required property and cannot be unset.
+   *
+   * @var string
+   */
+  public $shareLevel;
+  /**
    * The identifier of the object.
    *
    * @var string
@@ -161,6 +168,7 @@ abstract class AbstractObject extends MagicProperty implements Countable, ArrayA
   private function unset_members() {
     unset($this->id);
     unset($this->state);
+    unset($this->shareLevel);
     unset($this->createdDate);
     unset($this->lastModifiedDate);
     unset($this->label);
@@ -308,6 +316,48 @@ abstract class AbstractFedoraObject extends AbstractObject {
 
       case 'unset':
         trigger_error("Cannot unset the required object->state property.", E_USER_WARNING);
+        break;
+    }
+  }
+
+ /**
+   * @see AbstractObject::shareLevel
+   */
+  protected function shareLevelMagicProperty($function, $value) {
+    switch ($function) {
+      case 'get':
+        return $this->objectProfile['objShareLevel'];
+        break;
+
+      case 'isset':
+        return TRUE;
+        break;
+
+      case 'set':
+        switch (strtolower($value)) {
+          case 'o':
+          case 'open':
+            $this->objectProfile['objShareLevel'] = 'O';
+            break;
+
+          case 'r':
+          case 'registered':
+            $this->objectProfile['objShareLevel'] = 'R';
+            break;
+
+          case 'p':
+          case 'private':
+            $this->objectProfile['objShareLevel'] = 'P';
+            break;
+
+          default:
+            trigger_error("$value is not a valid value for the object->shareLevel property.", E_USER_WARNING);
+            break;
+        }
+        break;
+
+      case 'unset':
+        trigger_error("Cannot unset the required object->shareLevel property.", E_USER_WARNING);
         break;
     }
   }
@@ -477,6 +527,7 @@ class NewFedoraObject extends AbstractFedoraObject {
     parent::__construct($id, $repository);
     $this->objectProfile = array();
     $this->objectProfile['objState'] = 'A';
+    $this->objectProfile['objShareLevel'] = 'O';
     $this->objectProfile['objOwnerId'] = $this->repository->api->connection->username;
     $this->objectProfile['objLabel'] = '';
     $this->objectProfile['objLogMessage'] = '';
@@ -757,6 +808,16 @@ class FedoraObject extends AbstractFedoraObject {
     if ($this->objectProfile['objState'] != $value) {
       parent::stateMagicProperty('set', $value);
       $this->modifyObject(array('state' => $this->objectProfile['objState']));
+    }
+  }
+
+  /**
+   * @see AbstractObject::shareLevel
+   */
+  protected function shareLevelMagicPropertySet($value) {
+    if ($this->objectProfile['objShareLevel'] != $value) {
+      parent::shareLevelMagicProperty('set', $value);
+      $this->modifyObject(array('shareLevel' => $this->objectProfile['objShareLevel']));
     }
   }
 
