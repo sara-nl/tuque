@@ -6,6 +6,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 <foxml:objectProperties>
 <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#shareLevel" VALUE="Open"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#locked" VALUE="L"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="label2"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="owner2"/>
 <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2000-03-12T15:22:37.847Z"/>

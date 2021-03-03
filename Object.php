@@ -66,6 +66,13 @@ abstract class AbstractObject extends MagicProperty implements Countable, ArrayA
    */
   public $shareLevel;
   /**
+   * The locked state of this object. Must be one of: U (Unlocked), L (Locked/Local) or
+   * F (Full). This is a required property and cannot be unset.
+   *
+   * @var string
+   */
+  public $locked;
+  /**
    * The identifier of the object.
    *
    * @var string
@@ -169,6 +176,7 @@ abstract class AbstractObject extends MagicProperty implements Countable, ArrayA
     unset($this->id);
     unset($this->state);
     unset($this->shareLevel);
+    unset($this->locked);
     unset($this->createdDate);
     unset($this->lastModifiedDate);
     unset($this->label);
@@ -358,6 +366,48 @@ abstract class AbstractFedoraObject extends AbstractObject {
 
       case 'unset':
         trigger_error("Cannot unset the required object->shareLevel property.", E_USER_WARNING);
+        break;
+    }
+  }
+
+  /**
+   * @see AbstractObject::shareLevel
+   */
+  protected function lockedMagicProperty($function, $value) {
+    switch ($function) {
+      case 'get':
+        return $this->objectProfile['objLocked'];
+        break;
+
+      case 'isset':
+        return TRUE;
+        break;
+
+      case 'set':
+        switch (strtolower($value)) {
+          case 'u':
+          case 'unlocked':
+            $this->objectProfile['objLocked'] = 'U';
+            break;
+
+          case 'l':
+          case 'locked':
+            $this->objectProfile['objLocked'] = 'L';
+            break;
+
+          case 'f':
+          case 'full':
+            $this->objectProfile['objLocked'] = 'F';
+            break;
+
+          default:
+            trigger_error("$value is not a valid value for the object->locked property.", E_USER_WARNING);
+            break;
+        }
+        break;
+
+      case 'unset':
+        trigger_error("Cannot unset the required object->locked property.", E_USER_WARNING);
         break;
     }
   }
@@ -818,6 +868,16 @@ class FedoraObject extends AbstractFedoraObject {
     if ($this->objectProfile['objShareLevel'] != $value) {
       parent::shareLevelMagicProperty('set', $value);
       $this->modifyObject(array('shareLevel' => $this->objectProfile['objShareLevel']));
+    }
+  }
+
+  /**
+   * @see AbstractObject::locked
+   */
+  protected function lockedMagicPropertySet($value) {
+    if ($this->objectProfile['objLocked'] != $value) {
+      parent::lockedMagicProperty('set', $value);
+      $this->modifyObject(array('locked' => $this->objectProfile['objLocked']));
     }
   }
 

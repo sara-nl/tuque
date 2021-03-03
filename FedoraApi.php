@@ -187,7 +187,7 @@ class FedoraApiA {
    *   - query: A sequence of space-separated conditions. A condition consists
    *     of a metadata element name followed directly by an operator, followed
    *     directly by a value. Valid element names are (pid, label, state, shareLevel,
-   *     ownerId, cDate, mDate, dcmDate, title, creator, subject, description,
+   *     locked, ownerId, cDate, mDate, dcmDate, title, creator, subject, description,
    *     publisher, contributor, date, type, format, identifier, source,
    *     language, relation, coverage, rights). Valid operators are:
    *     contains (~), equals (=), greater than (>), less than (<), greater than
@@ -1240,6 +1240,7 @@ class FedoraApiM {
    *   - ownerId: the id of the user to be listed at the object owner.
    *   - state: the new object state - *A*ctive, *I*nactive, or *D*eleted.
    *   - shareLevel: the new object share level - *O*pen, *R*egistered, *P*rivate,
+   *   - locked: the new object locked state - *U*nlocked, *L*ocked, *F*ull
    *   - logMessage: a message describing the activity being performed.
    *   - lastModifiedDate: date/time of the last (known) modification to the
    *     datastream, if the actual last modified date is later, a 409 response
@@ -1259,6 +1260,7 @@ class FedoraApiM {
     $this->connection->addParamArray($request, $separator, $params, 'ownerId');
     $this->connection->addParamArray($request, $separator, $params, 'state');
     $this->connection->addParamArray($request, $separator, $params, 'shareLevel');
+    $this->connection->addParamArray($request, $separator, $params, 'locked');
     $this->connection->addParamArray($request, $separator, $params, 'logMessage');
     $this->connection->addParamArray($request, $separator, $params, 'lastModifiedDate');
 

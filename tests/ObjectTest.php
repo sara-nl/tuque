@@ -48,6 +48,9 @@ class ObjectTest extends TestCase {
 
     $this->object->shareLevel = 'O';
     $this->assertEquals('O', $this->getValue('objShareLevel'));
+
+    $this->object->locked = 'U';
+    $this->assertEquals('U', $this->getValue('objLocked'));
   }
 
   public function testObjectLabel() {
@@ -173,6 +176,31 @@ class ObjectTest extends TestCase {
     $this->assertEquals('O', $this->object->shareLevel);
     $this->object->shareLevel = 'private';
     $this->assertEquals('P', $this->object->shareLevel);
+  }
+
+  public function testObjectLocked() {
+    $this->assertEquals('U', $this->object->locked);
+
+    $this->object->locked = 'L';
+    $this->assertEquals('L', $this->object->locked);
+    $this->object->locked = 'F';
+    $this->assertEquals('F', $this->object->locked);
+    $this->object->locked = 'U';
+    $this->assertEquals('U', $this->object->locked);
+
+    $this->object->locked = 'l';
+    $this->assertEquals('L', $this->object->locked);
+    $this->object->locked = 'u';
+    $this->assertEquals('U', $this->object->locked);
+    $this->object->locked = 'f';
+    $this->assertEquals('F', $this->object->locked);
+
+    $this->object->locked = 'locked';
+    $this->assertEquals('L', $this->object->locked);
+    $this->object->locked = 'unlocked';
+    $this->assertEquals('U', $this->object->locked);
+    $this->object->locked = 'full';
+    $this->assertEquals('F', $this->object->locked);
   }
 
   public function testObjectDelete() {
